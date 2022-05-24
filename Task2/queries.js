@@ -7,10 +7,8 @@ db.restaurant.find({borough: "Bronx"}).limit(5)
 db.restaurant.find({borough: "Bronx"}).skip(5).limit(5)
 db.restaurant.find({grades: {$elemMatch: {score: {$gt: 90}}}})
 db.restaurant.find({grades: {$elemMatch: {score: {$gt: 80, $lt: 100}}}})
-// para buscar en las coordenadas tuve que usar el index para indicar si es long (idx: 0) o es lat (idx: 1)
-// porque si busca solo con 'address.coord' el query se ejecutará en todo array (par long/lat).
 db.restaurant.find({'address.coord.1': {$lt: -95.754168}}) // siempre debe ser vacia porque no existe latitude menor que -90.
-db.restaurant.find({$and:[{'cuisine': {$ne : "American "}}, {'grades.score': {$gt: 70}}, {'address.coord.1': {$lt: -65.754168} }]}) // en en este caso siempre debe ser vacia porque no existe ningun restaurante que esté en NY (hemisferio norte) y también esté en el hemisferio sur (latitudes negativas)
+db.restaurant.find({$and:[{'cuisine': {$ne : "American "}}, {'grades.score': {$gt: 70}}, {'address.coord.1': {$lt: -65.754168} }]}) // en en este caso siempre debe ser vacia porque no existe ningun restaurante que estÃ© en NY (hemisferio norte) y tambiÃ©n estÃ© en el hemisferio sur (latitudes negativas)
 db.restaurant.find({'cuisine': {$ne : "American "}, 'grades.score': {$gt: 70}, 'address.coord.0': {$lt: -65.754168} })
 db.restaurant.find({'cuisine': {$ne : "American "}, 'grades.grade': {$eq: 'A'}, 'borough': {$ne: 'Brooklyn'}}).sort({'cuisine':1})
 db.restaurant.find({name: {$regex: '^wil', $options: 'i'}}, {restaurant_id:1, name:1, borough:1, cuisine:1})
